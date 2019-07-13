@@ -3,7 +3,7 @@ Contributors: iOSS
 Donate link:
 Tags: MLM,multi level marketing,network marketing,affiliate,marketing,unilevel network
 Requires at least: 4.5
-Tested up to: 4.9.6
+Tested up to: 5.1
 Stable tag: 1.0
 Requires PHP: 5.4
 License: GPLv2 or Later

@@ -2,6 +2,7 @@
 function wpmlm_user_dashboard($user_id) {
     $user_row = wpmlm_getUserDetailsByParent($user_id);    
     $j_count =  wpmlm_getJoiningByTodayCountByUser($user_id);
+    $user_zip = wpmlm_get_user_details_by_id_join($user_id)[0]->user_zip;
     
     
     $ewallet_credit = wpmlm_getEwalletAmountByUser('credit',$user_id);    
@@ -45,72 +46,29 @@ function wpmlm_user_dashboard($user_id) {
            <div class="panel-border col-md-12">
                  
    <div class="panel-border col-md-4 col-sm-4 panel-ioss-mlm">
-      <div class="col-md-5 col-xs-6 col-md-6">
+      <div class="col-md-7 col-xs-6 col-md-7">
          <h4>Downlines</h4>
          <p>Total: <span><?php echo count($user_row);?> </span></p>
          <p>Today: <span><?php echo $j_count->count;?></span></p>
       </div>
-      <div class="col-sm-7 col-xs-6 col-md-6">
+      <div class="col-sm-5 col-xs-6 col-md-5">
          <img src="<?php echo plugins_url() . '/' . WP_MLM_PLUGIN_NAME . '/images/bar-chart.png'; ?>">
       </div>
    </div>
    <div class="panel-border col-md-4 col-sm-4 panel-ioss-mlm">
-      <div class="col-md-5 col-xs-6 col-md-6">
-         <h4>Bonus</h4>
-         <p>Total: <span><?php echo $general->company_currency;?><?php echo $bonus_total_amt;?></span></p>
-         <p>Today: <span><?php echo $general->company_currency;?><?php echo $bonus_total_amt_today;?></span></p>
-      </div>
-      <div class="col-sm-7 col-xs-6 col-md-6">
-         <img src="<?php echo plugins_url() . '/' . WP_MLM_PLUGIN_NAME . '/images/money-bag.png'; ?>">
-      </div>
-   </div>
-   <div class="panel-border col-md-4 col-sm-4 panel-ioss-mlm">
-      <div class="col-md-5 col-xs-6 col-md-6">
+      <div class="col-md-7 col-xs-6 col-md-7">
          <h4>E-Wallet</h4>
-         <p>Credit: <span><?php echo $general->company_currency;?><?php echo $credit_amt;?></span></p>
-         <p>Debit: <span><?php echo $general->company_currency;?><?php echo $debit_amt;?></span></p>
+         <p>gi cung duoc: <span><?php echo $user_zip;?></span></p>
+         <p>Balance: <span><?php echo $general->company_currency;?><?php echo ($credit_amt - $debit_amt);?></span></p>
       </div>
-      <div class="col-sm-7 col-xs-6 col-md-6">
+      <div class="col-sm-5 col-xs-6 col-md-5">
          <img src="<?php echo plugins_url() . '/' . WP_MLM_PLUGIN_NAME . '/images/wallet.png'; ?>">
       </div>
    </div>
-      <div class="panel-border col-md-6" style="padding-left: 0px;padding-top: 11px;">
-         
-            <script>
-            window.onload = function () {
-                var ctx = document.getElementById("myChart");
-                var myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                        datasets: [{
-                                label: 'Joinings',
-                                lineTension: 0,
-                                data: [<?php echo $joining_count; ?>],
-                                backgroundColor: ['rgba(54, 162, 235, 0.2)'],
-                                borderColor: ['rgba(54, 162, 235, 1)'],
-                                borderWidth: 1
-                            }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
-                        }
-                    }
-                });
-            }
-         </script>
-         <canvas id="myChart" width="400" height="400">
-         </canvas>
-      </div>
                
                
                <div class="panel-border  col-md-6" style="padding-right: 0px;padding-top: 42px !important;">
-               
+               <?php echo wpmlm_user_ewallet_details($user_id); ?>
         <table class="table table-striped table-bordered table-responsive-lg" cellspacing="0" width="100%">
           <thead>
           <caption class="user-table-profile">Recently joined users</caption>
@@ -144,28 +102,6 @@ function wpmlm_user_dashboard($user_id) {
           </tbody>
         </table>
         
-        <div class="mlm-users">
-            <h4 class="usr">Top Bonus Earned Users</h4>
-            
-            <?php 
-            $top_earners = wpmlm_get_total_leg_amount_all_users_under_parent($user_id);
-            if(count($top_earners)==0){
-                echo '<div class="top_earners_div"><p>No bonus earned users yet</p><div>';
-            }?>
-            
-            <?php 
-            foreach($top_earners as $te){?>
-        <div class="col-md-4">
-            <div class="user-list">
-                <img src="<?php echo plugins_url() . '/' . WP_MLM_PLUGIN_NAME . '/images/avatar.png'; ?>">
-                <li><h4><?php echo $te->user_first_name;?></h4></li>
-                <li><?php echo $general->company_currency;?><?php echo $te->total_amount;?></li>
-            </div>            
-        </div>
-        <?php
-            }
-            ?>
-        </div>
       </div>           
 
         </div>

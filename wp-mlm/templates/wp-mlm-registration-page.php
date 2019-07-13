@@ -260,37 +260,6 @@ function wpmlm_register_user_html_page() {
 
                         <div class="tab"><h1><?php echo $step2; ?>: User Info</h1>
                             <p><input type="text" oninput="this.className = 'required-field'" name="sname" id="sname"  placeholder="* Enter Sponsor Name"  tabindex="2" class="required-field" ></p>                
-                            <p><input type="text" oninput="this.className = 'required-field'" name="fname" id="fname" placeholder="* Enter First Name" tabindex="3" class="required-field" ></p>
-                            <p><input type="text"  name="lname" id="lname" placeholder=" Enter Last Name" tabindex="4" ></p>
-
-                            <p><input type="text" oninput="this.className = 'required-field'" name="address1" id="address1" placeholder="* Enter Address" tabindex="5" class="required-field"></p>
-
-                            <p oninput="this.className = 'required-field'" name="dob" id="dob"  class="input-group date" data-date-format="yyyy-mm-dd">
-                                <input class="form-control date_of_birth required-field" type="text" readonly name="date_of_birth" placeholder="* Enter DOB" tabindex="6"  />
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            </p>
-
-                            <p><select oninput="this.className = 'required-field'" name="country" id="country" style="width:100%; background-color: #fff;" tabindex="7" class="required-field" >
-                                    <?php
-                                    $sql = "SELECT id, name FROM {$table_prefix}wpmlm_country  ORDER BY name";
-                                    $results = $wpdb->get_results($sql);
-                                    echo '<option value=""> * Choose Country</option>';
-                                    foreach ($results as $res) {
-                                        echo '<option value="' . $res->id . '">' . $res->name . '</option>';
-                                    }
-                                    ?>
-                                </select></p>
-                            <p><input type="text" oninput="this.className = ''" name="state" id="state" placeholder=" Enter State" tabindex="8"></p>
-
-
-                            <p><input type="text" oninput="this.className = ''" name="city" id="city" placeholder=" Enter City" tabindex="9"></p>
-                            <p><input type="number" oninput="this.className = ''" name="zip" id="zip" placeholder=" Enter Zip Code" onkeypress="return isNumberKey(event)" tabindex="8"></p>
-
-
-                            <p><input type="number" oninput="this.className = 'required-field'" name="contact_no" id="contact_no" placeholder="* Enter Contact No" onkeypress="return isNumberKey(event)" tabindex="10" class="required-field"></p>
-
-
-
                         </div>
                         <div class="tab"><h1><?php echo $step3; ?>: Payment Mode</h1>
 
@@ -409,7 +378,7 @@ function wpmlm_register_user_html_page() {
             } else {
                 document.getElementById("prevBtn").style.display = "inline";
             }
-            if (n == (x.length - 1)) {
+            if (n == 1) {
                 document.getElementById("nextBtn").innerHTML = "Submit";
             } else {
                 document.getElementById("nextBtn").innerHTML = "Next";
@@ -451,7 +420,7 @@ function wpmlm_register_user_html_page() {
 
             x[currentTab].style.display = "none";
             currentTab = currentTab + n;
-            if (currentTab >= x.length) {
+            if (currentTab == 1) {
 
                 var payment_option = jQuery('#payment_option').val();
                 if (payment_option == 'paypal') {
