@@ -20,27 +20,7 @@ function wpmlm_user_area() {
 
             <h3 class="mlm-title">WP MLM User</h3>
             <div class="ioss-mlm-menu">
-                <input id="ioss-mlm-tab6" class="tab_class" type="radio" name="tabs" checked>
-                <label class="tab_class" for="ioss-mlm-tab6">Dashboard</label>
-
-                <input id="ioss-mlm-tab1" class="tab_class" type="radio" name="tabs">
-                <label class="tab_class" for="ioss-mlm-tab1">My Profile</label>      
-                <input id="ioss-mlm-tab2" class="tab_class tree-tab-user" type="radio" name="tabs">
-                <label class="tab_class" for="ioss-mlm-tab2">Genealogy Tree</label>      
-                <input id="ioss-mlm-tab3" class="tab_class ewallet-tab-user" type="radio" name="tabs">
-                <label class="tab_class" for="ioss-mlm-tab3">E-wallet Management</label>      
-                <input id="ioss-mlm-tab4" class="tab_class" type="radio" name="tabs">
-                <label class="tab_class" for="ioss-mlm-tab4">Bonus Details</label>
-                <input id="ioss-mlm-tab5" class="tab_class" type="radio" name="tabs">
-                <label class="tab_class" for="ioss-mlm-tab5">Referral Details</label>
-
-                <section id="content1"><p><?php echo wpmlm_user_profile_admin($user_id); ?></p></section>    
-                <section id="content2" ><p><?php echo wpmlm_unilevel_tree($user_id); ?></p></section> 
-                <section id="content3"><p><?php echo wpmlm_user_ewallet_management(); ?></p></section>
-                <section id="content4"><p><?php echo wpmlm_user_income_details($user_id); ?></p></section>
-                <section id="content5"><p><?php echo wpmlm_user_referrals($user_id); ?></p></section>
-                <section id="content6"><p><?php echo wpmlm_user_dashboard($user_id); ?></p></section> 
-
+                <p><?php echo wpmlm_user_ewallet_management(); ?></p>
             </div>
             <?php
         } else if ($_GET['reg_failed']) {
@@ -53,30 +33,7 @@ function wpmlm_user_area() {
             ?>
             <h3>WP MLM User</h3>
             <div class="ioss-mlm-menu">
-                <input id="ioss-mlm-tab6" class="tab_class" type="radio" name="tabs" checked>
-                <label class="tab_class" for="ioss-mlm-tab6">Dashboard</label>
-                <input id="ioss-mlm-tab1" class="tab_class" type="radio" name="tabs">
-                <label class="tab_class" for="ioss-mlm-tab1">My Profile</label>      
-                <input id="ioss-mlm-tab2" class="tab_class tree-tab-user" type="radio" name="tabs">
-                <label class="tab_class" for="ioss-mlm-tab2">Genealogy Tree</label>    
-                <input id="ioss-mlm-tab3" class="tab_class ewallet-tab-user" type="radio" name="tabs">
-                <label class="tab_class" for="ioss-mlm-tab3">E-wallet Management</label>      
-                <input id="ioss-mlm-tab4" class="tab_class" type="radio" name="tabs">
-                <label class="tab_class" for="ioss-mlm-tab4">Bonus Details</label>
-                <input id="ioss-mlm-tab5" class="tab_class" type="radio" name="tabs">
-                <label class="tab_class" for="ioss-mlm-tab5">Referral Details</label>
-
-
-
-
-                <section id="content1"><p><?php echo wpmlm_user_profile_admin($user_id); ?></p></section>    
-                <section id="content2" ><p><?php echo wpmlm_unilevel_tree($user_id); ?></p></section> 
-                <section id="content3"><p><?php echo wpmlm_user_ewallet_management(); ?></p></section>
-                <section id="content4"><p><?php echo wpmlm_user_income_details($user_id); ?></p></section>
-                <section id="content5"><p><?php echo wpmlm_user_referrals($user_id); ?></p></section>
-                <section id="content6"><p><?php echo wpmlm_user_dashboard($user_id); ?></p></section> 
-
-
+            <p><?php echo wpmlm_user_ewallet_management(); ?></p>
             </div>
 
             <?php
