@@ -28,7 +28,7 @@ function wpmlm_register_user_html_page() {
 
 
     if (isset($_POST['reg_submit']) && wp_verify_nonce($_POST['reg_submit'], 'register_action')) {
-        $sponsor = sanitize_text_field($_POST['sname']);
+        $sponsor = 'admin';
         $user_first_name = sanitize_text_field($_POST['fname']);
         $user_second_name = sanitize_text_field($_POST['lname']);
         $user_address = sanitize_text_field($_POST['address1']);
@@ -202,18 +202,6 @@ function wpmlm_register_user_html_page() {
     </div>
     <div class="ioss-mlm-menu panel-border">
         <input id="ioss-mlm-tab1" class="tab_class" type="radio" name="tabs" checked>
-        <label class="tab_class" for="ioss-mlm-tab6">Dashboard</label> 
-
-        <input id="ioss-mlm-tab2" class="tab_class" type="radio" name="tabs">
-        <label class="tab_class" for="ioss-mlm-tab2">My Profile</label>      
-        <input id="ioss-mlm-tab3" class="tab_class " type="radio" name="tabs">
-        <label class="tab_class" for="ioss-mlm-tab3">Genealogy Tree</label>      
-        <input id="ioss-mlm-tab4" class="tab_class" type="radio" name="tabs">
-        <label class="tab_class" for="ioss-mlm-tab4">E-wallet Management</label>      
-        <input id="ioss-mlm-tab5" class="tab_class" type="radio" name="tabs">
-        <label class="tab_class" for="ioss-mlm-tab5">Bonus Details</label>
-        <input id="ioss-mlm-tab6" class="tab_class" type="radio" name="tabs">
-        <label class="tab_class" for="ioss-mlm-tab6">Referral Details</label>
     <!--    <section id="content1"></section>-->
 
         <div class="col-md-12 panel-border">
@@ -345,163 +333,9 @@ function wpmlm_register_user_html_page() {
 
 
     <script>
-
-
-        jQuery("#dob").datepicker({
-            autoclose: true
+        jQuery(document).ready(function ($) {
+            document.getElementById("regForm").submit();
         });
-
-        //jQuery(document).ready(function ($) {
-            jQuery(".paid_join").click(function () {
-                if (jQuery(".paid_join").is(':checked')) {
-                    jQuery("#payment_option").val(jQuery(this).val());
-
-                }
-            });
-
-
-            jQuery(".free_join").click(function () {
-                if (jQuery(".free_join").is(':checked')) {
-                    jQuery("#payment_option").val('');
-
-                }
-            });
-        //});
-
-        var currentTab = 0;
-        showTab(currentTab);
-        function showTab(n) {
-            var x = document.getElementsByClassName("tab");
-            x[n].style.display = "block";
-            if (n == 0) {
-                document.getElementById("prevBtn").style.display = "none";
-            } else {
-                document.getElementById("prevBtn").style.display = "inline";
-            }
-            if (n == 1) {
-                document.getElementById("nextBtn").innerHTML = "Submit";
-            } else {
-                document.getElementById("nextBtn").innerHTML = "Next";
-            }
-            fixStepIndicator(n)
-        }
-
-        function nextPrev(n) {
-
-            var pkg_id = jQuery('#package_select').val();
-            if (pkg_id) {
-                jQuery.ajax({
-                    type: "POST",
-                    url: ajaxurl,
-                    data: {action: 'wpmlm_ajax_session', session_pkg_id: pkg_id},
-                    dataType: 'json',
-                    success: function (data) {
-                        jQuery(".selected-pkg-info").html("Selected Package is : " + data.package_name);
-                        jQuery("#itemname").val(data.package_name);
-                        jQuery("#itemprice").val(data.package_price);
-                        jQuery("#amount_span").html(data.package_price);
-
-                    }
-
-                });
-
-            } else {
-
-                jQuery("#err_msg").html('Please select a package');
-                jQuery(".selected-pkg-info").hide();
-                jQuery(".selected-pkg-info").html("");
-    <?php $_SESSION['session_pkg_id'] = NULL; ?>
-            }
-
-            var x = document.getElementsByClassName("tab");
-            if (n == 1 && !validateForm1())
-                //alert("sds");
-                return false;
-
-            x[currentTab].style.display = "none";
-            currentTab = currentTab + n;
-            if (currentTab == 1) {
-
-                var payment_option = jQuery('#payment_option').val();
-                if (payment_option == 'paypal') {
-                    var action = jQuery('#regForm').attr('action');
-                    var admin_path = jQuery('#admin-path').val();
-                    jQuery('#regForm').attr('action', admin_path + "admin.php?page=mlm-user-settings&paypal=checkout");
-
-                }
-                document.getElementById("regForm").submit();
-                jQuery('.please-wait').show();
-                return false;
-            }
-            showTab(currentTab);
-        }
-
-        function validateForm1() {
-            //alert("sdsd");
-
-            var x, y, z, i, valid = true;
-            x = document.getElementsByClassName("tab");
-            y = x[currentTab].getElementsByTagName("input");
-            z = x[currentTab].getElementsByTagName("select");
-
-
-            for (i = 0; i < y.length; i++) {
-
-
-                if (y[i].classList.contains('required-field')) {
-
-                    if (y[i].value == '') {
-
-
-                        y[i].className += " invalid";
-                        valid = false;
-
-                    }
-
-                }
-            }
-
-            for (i = 0; i < z.length; i++) {
-                if (z[i].value == '') {
-                    z[i].className += " invalid";
-                    valid = false;
-                }
-            }
-
-            if (jQuery("#sname").hasClass("invalid")) {
-                valid = false;
-            }
-
-            if (valid) {
-                document.getElementsByClassName("step")[currentTab].className += " finish";
-            }
-
-            return valid;
-
-        }
-
-        function fixStepIndicator(n) {
-            var i, x = document.getElementsByClassName("step");
-            for (i = 0; i < x.length; i++) {
-                x[i].className = x[i].className.replace(" active", "");
-            }
-            x[n].className += " active";
-        }
-
-        jQuery('#package_select').on('change', function () {
-            if (jQuery(this).val() == '') {
-                jQuery(".selected-pkg-info").hide();
-            }
-
-        });
-
-
-
-
-        jQuery(".required-field").focus(function () {
-            jQuery(this).removeClass("invalid");
-        })
-
     </script>   
 
     <?php
