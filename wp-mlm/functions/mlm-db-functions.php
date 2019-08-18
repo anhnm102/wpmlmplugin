@@ -249,7 +249,8 @@ function wpmlm_display_children($parent_id, $level) {
 function wpmlm_getUserDetails() {
     global $wpdb;
     $table_prefix = $wpdb->prefix;
-    $sql = "SELECT user_id,user_ref_id,user_parent_id,user_first_name,user_email FROM {$table_prefix}wpmlm_users";
+    $sql = "SELECT a.user_id,a.user_ref_id,a.user_parent_id,a.user_first_name,a.user_email FROM {$table_prefix}wpmlm_users as a  INNER JOIN {$table_prefix}users b ON a.user_ref_id=b.ID ";
+    
     $results = $wpdb->get_results($sql);
     return $results;
 }
@@ -259,7 +260,7 @@ function wpmlm_getUserDetails() {
 function wpmlm_getUserDetailsByParent($parent_id) {
     global $wpdb;
     $table_prefix = $wpdb->prefix;
-    $sql = "SELECT user_id,user_ref_id,user_parent_id,user_first_name,user_email FROM {$table_prefix}wpmlm_users where user_parent_id='" . $parent_id . "'";
+    $sql = "SELECT a.user_id,a.user_ref_id,a.user_parent_id,a.user_first_name,a.user_email FROM {$table_prefix}wpmlm_users as a  INNER JOIN {$table_prefix}users b ON a.user_ref_id=b.ID AND a.user_parent_id='" . $parent_id . "'";
     $results = $wpdb->get_results($sql);
     return $results;
 }
@@ -487,7 +488,7 @@ function wpmlm_get_total_leg_amount_all_by_user() {
 function wpmlm_get_total_leg_amount_all_users_under_admin($user_id) {
     global $wpdb;
     $table_prefix = $wpdb->prefix;
-    $sql = "SELECT ROUND(SUM(amt.`total_amount`),2) as total_amount ,u.`user_first_name` FROM {$table_prefix}wpmlm_leg_amount amt left join {$table_prefix}wpmlm_users  u ON amt.`user_id`=u.`user_id` WHERE u.`user_parent_id`!='0' group by amt.`user_id` LIMIT 0,5";
+    $sql = "SELECT ROUND(SUM(amt.`total_amount`),2) as total_amount ,u.`user_first_name` FROM {$table_prefix}wpmlm_leg_amount amt left join {$table_prefix}wpmlm_users  u ON amt.`user_id`=u.`user_ref_id` WHERE u.`user_parent_id`!='0' group by amt.`user_id` LIMIT 0,5";
     $results = $wpdb->get_results($sql);
     return $results;
 }
@@ -495,7 +496,7 @@ function wpmlm_get_total_leg_amount_all_users_under_admin($user_id) {
 function wpmlm_get_total_leg_amount_all_users_under_parent($user_id) {
     global $wpdb;
     $table_prefix = $wpdb->prefix;
-    $sql = "SELECT ROUND(SUM(amt.`total_amount`),2) as total_amount ,u.`user_first_name` FROM {$table_prefix}wpmlm_leg_amount amt left join {$table_prefix}wpmlm_users  u ON amt.`user_id`=u.`user_id` where u.`user_parent_id`='$user_id' group by amt.`user_id` LIMIT 0,3";
+    $sql = "SELECT ROUND(SUM(amt.`total_amount`),2) as total_amount ,u.`user_first_name` FROM {$table_prefix}wpmlm_leg_amount amt left join {$table_prefix}wpmlm_users  u ON amt.`user_id`=u.`user_ref_id` where u.`user_parent_id`='$user_id' group by amt.`user_id` LIMIT 0,3";
     $results = $wpdb->get_results($sql);
     return $results;
 }
@@ -574,7 +575,7 @@ function wpmlm_getUniqueTransactionId() {
     $table_name = $wpdb->prefix . "wpmlm_transaction_id";
 
     $date = date('Y-m-d H:i:s');
-    $code = getRandStr(9, 9);
+    $code = wpmlm_getRandStr(9, 9);
     $data = array(
         'transaction_id' => $code,
         'added_date' => $date

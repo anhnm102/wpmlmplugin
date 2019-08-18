@@ -3,6 +3,7 @@ function wpmlm_unilevel_tree($user_id='') {
 echo '<div id="dynamic-div">';
 $user_details = wpmlm_get_all_user_details_join();
     $tree = wpmlm_buildTree($user_details, $user_id);
+    $tree_count = count($user_details);
 
     function flattenArray($arr) {
         for ($i = 0; $i < count($arr); $i++) {
@@ -14,8 +15,9 @@ $user_details = wpmlm_get_all_user_details_join();
     }
 
     foreach ($tree as $key => $data) {
+
         if (is_array($data)) {
-            foreach ($data as $sub_data) {
+            for($ii=0;$ii<$tree_count;$ii++) { 
                 $tree = flattenArray($tree);
             }
         }

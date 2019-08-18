@@ -46,8 +46,8 @@ function wpmlm_commission_settings() {
                 <div class="commission-inner-div">
                     <?php if (count($level_commission) > 0) { ?>
                             <div class="col-md-12" style="margin-bottom: 10px">
-                                <input  type="radio" value="percentage" name="level_type" <?php echo($res->level_commission_type == 'percentage' && $result->registration_type!='with_out_package' ) ? 'checked' : ''; ?>  > <span> Percentage&nbsp;&nbsp;</span>
-                                <input type="radio" value="flat" name="level_type" <?php echo ($res->level_commission_type == 'flat' || $result->registration_type=='with_out_package') ? 'checked' : ''; ?> > <span> Flat</span>
+                                <input  type="radio" value="percentage" name="level_type" <?php echo($res->level_commission_type == 'percentage' ) ? 'checked' : ''; ?>  > <span> Percentage&nbsp;&nbsp;</span>
+                                <input type="radio" value="flat" name="level_type" <?php echo ($res->level_commission_type == 'flat') ? 'checked' : ''; ?> > <span> Flat</span>
                             <!--</div>-->
                 </div>
 

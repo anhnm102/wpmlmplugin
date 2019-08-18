@@ -150,6 +150,7 @@ function wpmlm_ajax_general_settings() {
 }
 
 function wpmlm_ajax_ewallet_management() {
+
     $msg = '';
     global $wpdb;
     $table_name = $wpdb->prefix . 'users';
@@ -172,6 +173,8 @@ function wpmlm_ajax_ewallet_management() {
         $the_user = get_user_by('login', $ewallet_user_name);
         $to_user_id = $the_user->ID;
         $transaction_id = wpmlm_getUniqueTransactionId();
+
+
         $date = date('Y-m-d H:i:s');
         $fund_details = array(
             'from_user_id' => $from_user_id,
@@ -185,7 +188,6 @@ function wpmlm_ajax_ewallet_management() {
 
         $bal_amount_arr = wpmlm_getBalanceAmount($to_user_id);
         $bal_amount = $bal_amount_arr->balance_amount;
-
 
 
         if ($fund_action == 'admin_debit') {
@@ -617,6 +619,7 @@ function wpmlm_ajax_transaction_password() {
     if (isset($_POST['send_tran_pass_nonce']) && wp_verify_nonce($_POST['send_tran_pass_nonce'], 'send_tran_pass')) {
         $username = sanitize_text_field($_POST['tran_user_name']);
 
+
         $the_user = get_user_by('login', $username);
         $user_id = $the_user->ID;
         $err = '';
@@ -655,16 +658,10 @@ function wpmlm_ajax_transaction_password() {
 
 
     if (isset($_POST['forgot_tran_pass_nonce']) && wp_verify_nonce($_POST['forgot_tran_pass_nonce'], 'forgot_tran_pass')) {
-        $username = sanitize_text_field($_POST['forgot_tran_user_name']);
-        $the_user = get_user_by('login', $username);
-        $user_id = $the_user->ID;
-        $err = '';
+        global $wpdb;
 
-        if (!$user_id) {
-            $err.='<p>Sorry! Username not exist</p>';
-            echo $err;
-            exit();
-        } else {
+            $the_user = wp_get_current_user();
+            $user_id = $the_user->ID;
 
             $new_tran_pass = wpmlm_getRandStrPassword();
             $new_pass = wp_hash_password($new_tran_pass);
@@ -687,7 +684,7 @@ function wpmlm_ajax_transaction_password() {
                 echo $err;
                 exit();
             }
-        }
+        
     }
 
 
@@ -934,23 +931,32 @@ function wpmlm_ajax_profile_report() {
 
 
     if (isset($_POST['search']) || isset($_POST['search_type'])) {
-        $search = sanitize_text_field($_POST['search']);
-        $search_type = sanitize_text_field($_POST['search_type']);
+
+        $search = $_POST['search'];
+       
+        $search_type = $_POST['search_type'];
         if ($search_type == 'all') {
             $result = wpmlm_get_all_user_details_join();
         } else {
-            if (username_exists($search)) {
+            if (username_exists($search)) {               
+
                 $user = get_userdatabylogin($search);
                 $user_id = $user->ID;
 
                 $result = wpmlm_get_user_details_by_id_join($user_id);
+
+
             } else {
                 echo 'no-user';
                 exit;
             }
+
         }
+
         $res = wpmlm_get_general_information();
+
         if (count($result) > 0) {
+
 
             $data = '<div class="row row-bottom">
             <div class="col-sm-12" >
@@ -1000,8 +1006,10 @@ function wpmlm_ajax_profile_report() {
 </tr>';
 
             $count = 1;
+
             foreach ($result as $res) {
                 $sponsor_id = $res->user_parent_id;
+
                 $res1 = wpmlm_get_user_details_by_id($sponsor_id);
                 $data.='<tr><td>' . $count++ . '</td>
         <td>' . $res->user_first_name . ' ' . $res->user_second_name . '</td>
@@ -1015,11 +1023,11 @@ function wpmlm_ajax_profile_report() {
         <td>' . date("Y/m/d", strtotime($res->join_date)) . '</td></tr>';
             }
             '</table>';
+
             echo $data;
             exit();
-            ?>
 
-            <?php
+            
         } else {
             echo 0;
             exit();

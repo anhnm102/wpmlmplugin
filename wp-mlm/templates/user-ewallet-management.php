@@ -155,12 +155,12 @@ function wpmlm_user_ewallet_management() {
                                         <div class="submit_message"></div>
                                         <p style="color: #31afde">Note : Transaction password will be sent to your registered Email id</p>
                                         <form id="forgot-tran-pass-form" class="form-horizontal " method="post">
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label class="control-label col-md-3" for="forgot_tran_user_name">User Name:</label>
                                                 <div class="col-md-6">
                                                     <input type="text" class="form-control" name="forgot_tran_user_name" id="forgot_tran_user_name">
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                             <div class="form-group"> 
                                                 <div class="col-sm-offset-3 col-sm-6">
@@ -321,13 +321,8 @@ function wpmlm_user_ewallet_management() {
                 $(".submit_message").show();
                 var formData = new FormData(this);
                 formData.append('action', 'wpmlm_ajax_transaction_password');
-                isValid = true;
-                if ($("#forgot_tran_user_name").val() == '') {
-                    $("#forgot_tran_user_name").addClass("invalid");
-                    isValid = false;
-                }
+            
 
-                if (isValid) {
                     $.ajax({
                         type: "POST",
                         url: ajaxurl,
@@ -336,7 +331,6 @@ function wpmlm_user_ewallet_management() {
                         contentType: false,
                         processData: false,
                         success: function (data) {
-
                             if ($.trim(data) === "1") {
                                 $(".submit_message").html('<div class="alert alert-info">Transaction Password Sent Successfully</div>');
                                 setTimeout(function () {
@@ -357,7 +351,7 @@ function wpmlm_user_ewallet_management() {
 
                         }
                     });
-                }
+                
                 return false;
             });
 
@@ -483,7 +477,6 @@ function wpmlm_user_ewallet_management() {
             });
 
 
-
             
             $("#fund-management-form").submit(function () {
                 $(".submit_message").show();
@@ -531,7 +524,7 @@ function wpmlm_user_ewallet_management() {
 
             
             $("#fund-transfer-form").submit(function () {
-
+                $(".submit_message").html('');
                 $(".submit_message").show();
                 var formData = new FormData(this);
                 formData.append('action', 'wpmlm_ajax_ewallet_management');

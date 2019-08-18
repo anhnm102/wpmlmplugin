@@ -19,8 +19,6 @@ input[type="text"], input[type="email"], input[type="url"], input[type="password
     color:#666! important;
 
 }
-
-
 #regForm input[type="password"]{
     font-size: 12px !important ;  
 }
@@ -676,7 +674,7 @@ label.tab_class:active {
     height: 80px;
 }
 #general-settings .col-sm-7 {
-    text-align: center;
+    text-align: left;
 }
 .user-list {
     text-align: center;

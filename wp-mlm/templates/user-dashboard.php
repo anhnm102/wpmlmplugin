@@ -45,32 +45,32 @@ function wpmlm_user_dashboard($user_id) {
            <div class="panel-border col-md-12">
                  
    <div class="panel-border col-md-4 col-sm-4 panel-ioss-mlm">
-      <div class="col-md-5 col-xs-6 col-md-6">
+      <div class="col-md-7 col-xs-6 col-md-7">
          <h4>Downlines</h4>
          <p>Total: <span><?php echo count($user_row);?> </span></p>
          <p>Today: <span><?php echo $j_count->count;?></span></p>
       </div>
-      <div class="col-sm-7 col-xs-6 col-md-6">
+      <div class="col-sm-5 col-xs-6 col-md-5">
          <img src="<?php echo plugins_url() . '/' . WP_MLM_PLUGIN_NAME . '/images/bar-chart.png'; ?>">
       </div>
    </div>
    <div class="panel-border col-md-4 col-sm-4 panel-ioss-mlm">
-      <div class="col-md-5 col-xs-6 col-md-6">
+      <div class="col-md-7 col-xs-6 col-md-7">
          <h4>Bonus</h4>
          <p>Total: <span><?php echo $general->company_currency;?><?php echo $bonus_total_amt;?></span></p>
          <p>Today: <span><?php echo $general->company_currency;?><?php echo $bonus_total_amt_today;?></span></p>
       </div>
-      <div class="col-sm-7 col-xs-6 col-md-6">
+      <div class="col-sm-5 col-xs-6 col-md-5">
          <img src="<?php echo plugins_url() . '/' . WP_MLM_PLUGIN_NAME . '/images/money-bag.png'; ?>">
       </div>
    </div>
    <div class="panel-border col-md-4 col-sm-4 panel-ioss-mlm">
-      <div class="col-md-5 col-xs-6 col-md-6">
+      <div class="col-md-7 col-xs-6 col-md-7">
          <h4>E-Wallet</h4>
          <p>Credit: <span><?php echo $general->company_currency;?><?php echo $credit_amt;?></span></p>
          <p>Debit: <span><?php echo $general->company_currency;?><?php echo $debit_amt;?></span></p>
       </div>
-      <div class="col-sm-7 col-xs-6 col-md-6">
+      <div class="col-sm-5 col-xs-6 col-md-5">
          <img src="<?php echo plugins_url() . '/' . WP_MLM_PLUGIN_NAME . '/images/wallet.png'; ?>">
       </div>
    </div>
