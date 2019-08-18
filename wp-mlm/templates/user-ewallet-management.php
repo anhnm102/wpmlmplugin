@@ -2,13 +2,30 @@
 
 function wpmlm_user_ewallet_management() {
     $user_id = get_current_user_id();
+    $user_state = wpmlm_get_user_details_by_id_join($user_id)[0]->user_state;
     $user = get_user_by('id', $user_id);
     $bal_amount_arr = wpmlm_getBalanceAmount($user_id);
     $bal_amount = $bal_amount_arr->balance_amount;
     $result2 = wpmlm_get_general_information();
+
+    $ewallet_credit = wpmlm_getEwalletAmountByUser('credit',$user_id);    
+    $ewallet_debit = wpmlm_getEwalletAmountByUser('debit',$user_id);    
+    $debit_amt = ($ewallet_debit->sum !=''? $ewallet_debit->sum:0);
+    $credit_amt = ($ewallet_credit->sum !=''? $ewallet_credit->sum:0);   
     ?>
-    <div class="panel-border-heading">
-        <h4><i class="fa fa-suitcase" aria-hidden="true"></i> E-Wallet Management</h4>
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <div class="col-md-5 panel-border panel-ioss-mlm" style="margin-left: 16px">
+                <div class="col-md-7 col-xs-6 col-md-7">
+                    <h4>E-Wallet</h4>
+                    <p>gi cung duoc: <span><?php echo $user_state;?></span></p>
+                    <p>Balance: <span><?php echo $general->company_currency;?><?php echo ($credit_amt - $debit_amt);?></span></p>
+                </div>
+                <div class="col-sm-5 col-xs-6 col-md-5">
+                    <img src="<?php echo plugins_url() . '/' . WP_MLM_PLUGIN_NAME . '/images/wallet.png'; ?>">
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="all-reports">
@@ -111,9 +128,6 @@ function wpmlm_user_ewallet_management() {
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4" for="ewallet_balance">Ewallet Balance :</label><label class="control-label" style="float:left;"><?php echo $result2->company_currency; ?>&nbsp; </label><label class="control-label ewallet_balance" style="float:left;"></label></div>
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-4" for="ewallet_user_name_to">Receiver:</label><label class="control-label ewallet_user_name_to" style="float:left;"></label>
-                                                </div>
                                                 <div class="form-group">
                                                     <label class="control-label col-md-4" for="amount_to_transfer">Amount to transfer :</label><label class="control-label" style="float:left;"><?php echo $result2->company_currency; ?>&nbsp; </label><label class="control-label amount_to_transfer" style="float:left;"></label></div>
                                                 <div class="form-group">
