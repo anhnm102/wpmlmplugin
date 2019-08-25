@@ -102,7 +102,7 @@ function wpmlm_register_user_html_page() {
 
                 $reg_msg = base64_encode('Registration Completed Successfully!');
 
-                wp_redirect($current_url . 'admin.php?page=mlm-user-settings&reg_status=' . $reg_msg);
+                wp_redirect($current_url . 'admin.php?page=mlm-user-settings');
                 exit();
             } else {
                 $reg_msg = base64_encode('Sorry! Registration Failed, Please try again');
@@ -170,7 +170,7 @@ function wpmlm_register_user_html_page() {
 
                     $current_url = admin_url();
                     $reg_msg = base64_encode('Registration Completed Successfully!');
-                    wp_redirect($current_url . 'admin.php?page=mlm-user-settings&reg_status=' . $reg_msg);
+                    wp_redirect($current_url . 'admin.php?page=mlm-user-settings');
                     exit();
                 }
             }
@@ -197,10 +197,10 @@ function wpmlm_register_user_html_page() {
     }
     ?>
 
-    <div class="panel-border-heading">
+    <div class="panel-border-heading" style="visibility: hidden">
         <h3>WP MLM User Registration</h3>
     </div>
-    <div class="ioss-mlm-menu panel-border">
+    <div class="ioss-mlm-menu panel-border" style="visibility: hidden">
         <input id="ioss-mlm-tab1" class="tab_class" type="radio" name="tabs" checked>
     <!--    <section id="content1"></section>-->
 
